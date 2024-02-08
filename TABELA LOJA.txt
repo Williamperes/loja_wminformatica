@@ -1,0 +1,43 @@
+
+TABELA-LOJA
+
+CREATE TABLE Tipo(
+ cd_tipo SERIAL NOT NULL,
+ desc_tipo varchar(50) NOT NULL,
+ PRIMARY KEY(cd_tipo)
+);
+
+CREATE TABLE Categoria(
+ cd_cat SERIAL NOT NULL,
+ desc_cat varchar(50) NOT NULL,
+ PRIMARY KEY(cd_cat)
+);
+
+CREATE TABLE Funcionario(
+ cd_func SERIAL NOT NULL,
+ nome_func varchar(50) NOT NULL,
+ end_func varchar(100) NOT NULL,
+ cpf_func char(11) NOT NULL,
+ tipo_func integer NOT NULL,
+  PRIMARY KEY(cd_func),
+  FOREIGN KEY(tipo_func) REFERENCES Tipo(cd_tipo)ON DELETE CASCADE
+);
+ 
+CREATE TABLE Produto(
+ cd_prod SERIAL NOT NULL,
+ nome_prod varchar(50) NOT NULL,
+ quant_prod integer NOT NULL,
+ tipo_prod integer NOT NULL,
+ PRIMARY KEY(cd_prod),
+ FOREIGN KEY(tipo_prod) REFERENCES Categoria(cd_cat)ON DELETE CASCADE
+);
+
+CREATE TABLE compra(
+cd_compra SERIAL NOT NULL,
+cd_func integer NOT NULL,
+cd_prod integer NOT NULL,
+dt_compra date NOT NULL,
+PRIMARY KEY(cd_compra),
+FOREIGN KEY(cd_func) REFERENCES funcionario(cd_func)ON DELETE CASCADE,
+FOREIGN KEY(cd_prod) REFERENCES produto(cd_prod)ON DELETE CASCADE
+);
